@@ -1,0 +1,52 @@
+{{!< default}}
+{{!-- Home and paginated archive. The hero and title card only open page one of the home page. --}}
+{{#is "home"}}
+    {{#unless pagination.prev}}
+        {{#if @site.cover_image}}
+            <section class="screen" aria-label="{{@site.title}}">
+                <div class="still still-hero">
+                    <img
+                        srcset="{{img_url @site.cover_image size="l"}} 1200w, {{img_url @site.cover_image size="xl"}} 1600w, {{img_url @site.cover_image size="xxl"}} 2400w"
+                        sizes="100vw"
+                        src="{{img_url @site.cover_image size="xl"}}"
+                        alt=""
+                        fetchpriority="high">
+                    {{#if @site.description}}
+                        <p class="subs">
+                            <span class="sub-first" data-detect-lang>{{@site.description}}</span>
+                            {{#if @custom.hero_subtitle}}<span class="sub-second" data-detect-lang>{{@custom.hero_subtitle}}</span>{{/if}}
+                        </p>
+                    {{/if}}
+                </div>
+            </section>
+        {{else if @site.description}}
+            {{!-- No cover image: the description plays as subtitles on a black frame. --}}
+            <section class="screen" aria-label="{{@site.title}}">
+                <div class="still still-empty">
+                    <p class="subs">
+                        <span class="sub-first" data-detect-lang>{{@site.description}}</span>
+                        {{#if @custom.hero_subtitle}}<span class="sub-second" data-detect-lang>{{@custom.hero_subtitle}}</span>{{/if}}
+                    </p>
+                </div>
+            </section>
+        {{/if}}
+        <section class="title-card">
+            <h1>{{@site.title}}</h1>
+            {{#if @custom.title_card_credits}}<p class="label">{{@custom.title_card_credits}}</p>{{/if}}
+        </section>
+    {{/unless}}
+{{/is}}
+
+<section class="program" aria-labelledby="program-title">
+    <h2 class="label program-label" id="program-title">
+        Now showing{{#if pagination.prev}} · page {{pagination.page}} of {{pagination.pages}}{{/if}}
+    </h2>
+    <ol class="grid{{#is "home"}}{{#unless pagination.prev}} has-lead{{/unless}}{{/is}}">
+        {{#foreach posts}}
+            {{> post-card}}
+        {{/foreach}}
+    </ol>
+    {{pagination}}
+</section>
+
+{{> subscribe}}

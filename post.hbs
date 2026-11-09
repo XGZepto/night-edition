@@ -1,0 +1,68 @@
+{{!< default}}
+{{#post}}
+<article class="{{post_class}}"{{#has tag="#zh-hans"}} lang="zh-Hans"{{/has}}>
+
+    {{#if feature_image}}
+        <figure class="screen feature">
+            <div class="still">
+                <img
+                    srcset="{{img_url feature_image size="m"}} 800w, {{img_url feature_image size="l"}} 1200w, {{img_url feature_image size="xl"}} 1600w, {{img_url feature_image size="xxl"}} 2400w"
+                    sizes="100vw"
+                    src="{{img_url feature_image size="xl"}}"
+                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                    fetchpriority="high">
+                {{#if feature_image_caption}}
+                    <figcaption class="subs"><span class="sub-second">{{feature_image_caption}}</span></figcaption>
+                {{/if}}
+            </div>
+        </figure>
+    {{/if}}
+
+    <header class="post-head">
+        <p class="label">
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
+            · <span data-reading-time>{{reading_time minute="1 min" minutes="% min"}}</span>
+            {{#primary_tag}} · <a href="{{url}}">{{name}}</a>{{/primary_tag}}
+        </p>
+        <h1 class="post-title" data-detect-lang>{{title}}</h1>
+        {{#if custom_excerpt}}<p class="dek" data-detect-lang>{{custom_excerpt}}</p>{{/if}}
+        {{#has tag="#bilingual"}}
+            <div class="lang-switch" role="group" aria-label="Subtitles 字幕" hidden>
+                <span class="label">字幕 Subtitles</span>
+                <button type="button" data-setlang="zh">中文</button>
+                <button type="button" data-setlang="en">English</button>
+            </div>
+        {{/has}}
+    </header>
+
+    <section class="gh-content"{{#has tag="#bilingual"}} data-bilingual{{/has}}>
+        {{content}}
+    </section>
+
+    <p class="fin" aria-hidden="true">— 完 —</p>
+
+    <footer class="post-foot">
+        <p class="label">Written by</p>
+        <p class="credit">{{#foreach authors}}<a href="{{url}}">{{name}}</a>{{#unless @last}}, {{/unless}}{{/foreach}}</p>
+
+        {{#if comments}}
+            <div class="comments">{{comments mode="dark" title="Comments" count=true}}</div>
+        {{/if}}
+
+        <nav class="prev-next" aria-label="More stories">
+            {{#prev_post}}
+                <a class="prev" href="{{url}}"><span class="label">Previously</span><span class="pn-title" data-detect-lang>{{title}}</span></a>
+            {{else}}
+                <span></span>
+            {{/prev_post}}
+            {{#next_post}}
+                <a class="next" href="{{url}}"><span class="label">Next</span><span class="pn-title" data-detect-lang>{{title}}</span></a>
+            {{else}}
+                <span class="next label">Latest story</span>
+            {{/next_post}}
+        </nav>
+    </footer>
+</article>
+{{/post}}
+
+{{> subscribe}}

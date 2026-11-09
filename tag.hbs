@@ -1,0 +1,16 @@
+{{!< default}}
+{{#tag}}
+<section class="title-card title-card-sm">
+    <p class="label">Tag</p>
+    <h1 data-detect-lang>{{name}}</h1>
+    {{#if description}}<p class="dek" data-detect-lang>{{description}}</p>{{/if}}
+</section>
+{{/tag}}
+<section class="program" aria-label="Stories">
+    <ol class="grid">
+        {{#foreach posts}}
+            {{> post-card}}
+        {{/foreach}}
+    </ol>
+    {{pagination}}
+</section>

@@ -1,0 +1,59 @@
+{{!-- Sign-in and subscribe, run by members.js: a full-screen title card with subtitles. --}}
+{{#if @site.members_enabled}}
+{{#unless @member}}
+<div class="member" data-member-panel data-signup="{{#if @site.members_invite_only}}none{{else if @site.paid_members_enabled}}portal{{else if @site.portal_signup_checkbox_required}}portal{{else if @site.allow_self_signup}}theme{{else}}portal{{/if}}" data-mode="signup" hidden>
+    <section class="member-box" role="dialog" aria-modal="true" aria-label="Subscribe or sign in">
+        <div class="member-top">
+            <button type="button" class="pill member-close" data-member-close>Close</button>
+        </div>
+
+        <form class="member-form" data-member-form="signup" data-member-scope novalidate>
+            <div class="member-ask">
+                <h2 class="member-h">Subscribe</h2>
+                <p class="member-subs"><span lang="zh-Hant">新的故事，寄到你的郵箱。</span><span>New stories, by email.</span></p>
+                <label class="sr-only" for="member-signup-name">Name</label>
+                <input id="member-signup-name" type="text" data-member-name autocomplete="name" placeholder="Name (optional)">
+                <label class="sr-only" for="member-signup-email">Email</label>
+                <input id="member-signup-email" type="email" data-member-email autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@example.com">
+                <p class="member-error" data-member-error data-invalid="Enter a valid email address." data-fallback="That didn’t work. Try again." aria-live="assertive"></p>
+                {{#if @site.portal_signup_terms_html}}<div class="member-terms">{{{@site.portal_signup_terms_html}}}</div>{{/if}}
+                <div class="member-acts">
+                    <button type="submit" class="member-go"><span class="go-idle">Subscribe</span><span class="go-busy">Sending…</span></button>
+                    <p class="member-switch">Already subscribed? <button type="button" data-member-mode="signin">Sign in</button></p>
+                </div>
+            </div>
+            <div class="member-sent" aria-live="polite">
+                <h2 class="member-h">Check your inbox</h2>
+                <p class="member-subs"><span lang="zh-Hant">確認信已寄出。</span><span>Confirm with the link sent to <b data-member-echo></b>.</span></p>
+                <div class="member-acts"><button type="button" class="member-go" data-member-close data-member-done>Done</button></div>
+            </div>
+        </form>
+
+        <form class="member-form" data-member-form="signin" data-member-scope novalidate hidden>
+            <div class="member-ask">
+                <h2 class="member-h">Sign in</h2>
+                <p class="member-subs"><span lang="zh-Hant">登入連結會寄到你的郵箱。</span><span>We’ll email you a link to sign in.</span></p>
+                <label class="sr-only" for="member-signin-email">Email</label>
+                <input id="member-signin-email" type="email" data-member-email autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="you@example.com">
+                <p class="member-error" data-member-error data-invalid="Enter a valid email address." data-fallback="That didn’t work. Try again." aria-live="assertive"></p>
+                <div class="member-acts">
+                    <button type="submit" class="member-go"><span class="go-idle">Send link</span><span class="go-busy">Sending…</span></button>
+                    {{#unless @site.members_invite_only}}<p class="member-switch">New here? {{> signup label="Subscribe" switch=true}}</p>{{/unless}}
+                </div>
+            </div>
+            <div class="member-sent" aria-live="polite">
+                <h2 class="member-h">Check your inbox</h2>
+                <p class="member-subs"><span lang="zh-Hant">登入連結已寄出。</span><span>Sign in with the link sent to <b data-member-echo></b>.</span></p>
+                <div class="member-acts"><button type="button" class="member-go" data-member-close data-member-done>Done</button></div>
+            </div>
+        </form>
+    </section>
+</div>
+{{/unless}}
+<div class="member-note" data-member-note role="status" hidden>
+    <p data-note="signin"><span lang="zh-Hant">登入成功。</span><span>Signed in{{#if @member.firstname}} — welcome back, {{@member.firstname}}{{/if}}.</span></p>
+    <p data-note="signup"><span lang="zh-Hant">訂閱成功。</span><span>You’re subscribed.</span></p>
+    <p data-note="fail"><span lang="zh-Hant">連結已失效。</span><span>That link has expired.{{#unless @member}} <button type="button" data-member="signin" data-note-close>Send a new one</button>{{/unless}}</span></p>
+    <button type="button" class="member-note-x" data-note-close aria-label="Dismiss">×</button>
+</div>
+{{/if}}

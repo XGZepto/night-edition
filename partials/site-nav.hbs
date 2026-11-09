@@ -1,0 +1,46 @@
+<header class="site-nav">
+    <a class="site-logo" href="{{@site.url}}">
+        {{#if @site.logo}}
+            <img src="{{img_url @site.logo size="s"}}" alt="{{@site.title}}">
+        {{else}}
+            <span class="site-logo-text">{{@site.title}}</span>
+        {{/if}}
+    </a>
+    <nav class="site-menu" aria-label="Main">
+        {{navigation}}
+        <button class="site-search" type="button" data-search aria-haspopup="dialog" aria-label="Search">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        </button>
+        {{#if @site.members_enabled}}
+            {{#if @member}}
+                <a class="pill" href="#/portal/account" data-portal="account">Account</a>
+            {{else}}
+                <a class="nav-signin" href="#/portal/signin" data-member="signin" aria-haspopup="dialog">Sign in</a>
+                {{> signup class="pill" label="Subscribe"}}
+            {{/if}}
+        {{/if}}
+        <button class="site-search site-menu-btn" type="button" data-menu aria-expanded="false" aria-controls="site-menu" aria-label="Menu">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+        </button>
+    </nav>
+</header>
+{{!-- On phones the nav links move into this full-screen menu, set like end credits. --}}
+<div class="menu" id="site-menu" data-menu-panel hidden>
+    <nav class="menu-box" aria-label="Menu">
+        <div class="menu-top">
+            <p class="label">目錄 Menu</p>
+            <button type="button" class="pill menu-close" data-menu-close>Close</button>
+        </div>
+        <ul class="menu-list" role="list">
+            {{#foreach @site.navigation}}<li><a href="{{this.url}}" data-detect-lang>{{label}}</a></li>{{/foreach}}
+            {{#if @site.members_enabled}}
+                {{#if @member}}
+                    <li><a href="#/portal/account" data-portal="account">Account</a></li>
+                {{else}}
+                    <li><a href="#/portal/signin" data-member="signin" aria-haspopup="dialog">Sign in</a></li>
+                    {{#unless @site.members_invite_only}}<li>{{> signup label="Subscribe"}}</li>{{/unless}}
+                {{/if}}
+            {{/if}}
+        </ul>
+    </nav>
+</div>

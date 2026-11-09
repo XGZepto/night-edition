@@ -1,0 +1,90 @@
+{
+  "name": "night-edition",
+  "description": "A Ghost theme in the language of Hong Kong film stills: letterboxed photos, captions as subtitles, scene numbers, and posts that switch between 中文 and English.",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Zepto Zhou",
+    "email": "xgzepto@gmail.com",
+    "url": "https://zepto.page"
+  },
+  "homepage": "https://github.com/XGZepto/night-edition#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XGZepto/night-edition.git"
+  },
+  "bugs": {
+    "url": "https://github.com/XGZepto/night-edition/issues"
+  },
+  "engines": {
+    "ghost": ">=6.0.0"
+  },
+  "keywords": [
+    "ghost-theme",
+    "ghost",
+    "theme",
+    "blog",
+    "bilingual",
+    "chinese"
+  ],
+  "screenshots": {
+    "desktop": "assets/screenshot-desktop.jpg",
+    "mobile": "assets/screenshot-mobile.jpg"
+  },
+  "config": {
+    "posts_per_page": 12,
+    "image_sizes": {
+      "s": {
+        "width": 480
+      },
+      "m": {
+        "width": 800
+      },
+      "l": {
+        "width": 1200
+      },
+      "xl": {
+        "width": 1600
+      },
+      "xxl": {
+        "width": 2400
+      }
+    },
+    "card_assets": true,
+    "custom": {
+      "hero_subtitle": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Second subtitle line under the site description, over the cover image."
+      },
+      "title_card_credits": {
+        "type": "text",
+        "default": "",
+        "group": "homepage"
+      },
+      "default_language": {
+        "type": "select",
+        "options": [
+          "Reader's browser",
+          "中文",
+          "English"
+        ],
+        "default": "Reader's browser",
+        "group": "post",
+        "description": "Which half a #bilingual post opens on."
+      },
+      "film_grain": {
+        "type": "boolean",
+        "default": true
+      }
+    }
+  },
+  "scripts": {
+    "test": "gscan .",
+    "zip": "node scripts/zip.mjs"
+  },
+  "devDependencies": {
+    "gscan": "^6.7.0"
+  }
+}

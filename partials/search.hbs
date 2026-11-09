@@ -1,0 +1,15 @@
+{{!-- Search: a full-screen overlay, the query typed like a subtitle. Filled in by main.js. --}}
+<div class="search" data-search-panel hidden>
+    <section class="search-box" role="dialog" aria-modal="true" aria-labelledby="search-label">
+        <div class="search-top">
+            <p class="label" id="search-label">字幕 Search</p>
+            <button type="button" class="pill search-close" data-search-close>Close</button>
+        </div>
+        <form class="search-line" data-search-form>
+            <label class="sr-only" for="search-input">Search stories</label>
+            <input id="search-input" type="search" placeholder="Search stories · 搜尋" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-controls="search-results" aria-expanded="true" aria-autocomplete="list" data-search-input>
+        </form>
+        <p class="label search-status" data-search-status></p>
+        <ol class="search-results" id="search-results" role="listbox" aria-label="Results" data-search-results></ol>
+    </section>
+</div>
